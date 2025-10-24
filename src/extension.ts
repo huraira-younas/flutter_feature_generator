@@ -52,8 +52,8 @@ export function activate(context: vscode.ExtensionContext) {
 
       const templatesToGenerate =
         templateChoice === "full"
-          ? ["bloc", "repository", "views", "locator.dart"]
-          : [templateChoice, "locator.dart"];
+          ? ["bloc", "repository", "views"]
+          : [templateChoice];
 
       const config = vscode.workspace.getConfiguration(
         "flutterFeatureGenerator"
@@ -164,6 +164,37 @@ export function activate(context: vscode.ExtensionContext) {
                   );
                 }
               }
+            }
+
+            // Handle locator.dart separately
+            const locatorTemplatePath = vscode.Uri.file(
+              context.asAbsolutePath("src/templates/locator.dart")
+            );
+            const locatorTargetPath = vscode.Uri.joinPath(
+              targetRoot,
+              "locator.dart"
+            );
+
+            try {
+              const locatorContent = await vscode.workspace.fs.readFile(
+                locatorTemplatePath
+              );
+              const processedLocatorContent = replacePlaceholders(
+                locatorContent.toString(),
+                featureName,
+                projectName
+              );
+
+              await vscode.workspace.fs.writeFile(
+                locatorTargetPath,
+                Buffer.from(processedLocatorContent, "utf8")
+              );
+              progress.report({ message: "Created locator.dart" });
+            } catch (err: any) {
+              vscode.window.showErrorMessage(
+                `Failed to create locator.dart: ${err.message}`
+              );
+              console.error(err);
             }
 
             if (openAfter) {

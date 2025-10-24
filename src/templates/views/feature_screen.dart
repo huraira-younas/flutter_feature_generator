@@ -9,7 +9,7 @@ class {{feature_class}}Screen extends StatelessWidget {
     return const Scaffold(
       body: Center(
         child: CustomLabelWidget(
-          text: {{FeatureName}}" is in development",
+          text: "{{feature_class}} is in development",
           icon: Icons.work_outline_outlined,
           title: "In Development",
         ),
