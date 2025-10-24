@@ -1,0 +1,72 @@
+{
+    "displayName": "Flutter Feature Generator",
+    "name": "flutter-feature-generator",
+    "publisher": "local-dev",
+    "version": "0.1.0",
+    "engines": {
+        "vscode": "^1.75.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/example/example.git"
+    },
+    "activationEvents": [
+        "onCommand:flutterFeatureGenerator.generateFeature"
+    ],
+    "main": "./out/extension.js",
+    "contributes": {
+        "commands": [
+            {
+                "command": "flutterFeatureGenerator.generateFeature",
+                "title": "Generate Flutter Feature"
+            }
+        ],
+        "menus": {
+            "explorer/context": [
+                {
+                    "command": "flutterFeatureGenerator.generateFeature",
+                    "when": "resourceDirname =~ /lib/",
+                    "group": "navigation"
+                }
+            ]
+        },
+        "configuration": {
+            "type": "object",
+            "title": "Flutter Feature Generator",
+            "properties": {
+                "flutterFeatureGenerator.templatesSource": {
+                    "type": "string",
+                    "default": "extension",
+                    "enum": [
+                        "extension",
+                        "workspace"
+                    ],
+                    "description": "Where to load templates from. 'extension' loads bundled templates. 'workspace' loads from <workspace>/tool/templates if present."
+                },
+                "flutterFeatureGenerator.openGeneratedFiles": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Automatically open the primary generated screen after creation."
+                }
+            }
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "test": "npm run compile && node ./out/test/runTest.js"
+    },
+    "devDependencies": {
+        "@types/mocha": "^10.0.1",
+        "@types/node": "^18.15.11",
+        "@types/vscode": "^1.75.0",
+        "@vscode/test-electron": "^2.3.0",
+        "glob": "^11.0.3",
+        "mocha": "^10.2.0",
+        "typescript": "^5.9.3"
+    }
+}
