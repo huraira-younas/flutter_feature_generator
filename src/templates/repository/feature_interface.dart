@@ -1,3 +1,3 @@
-abstract class I{{feature_class}}Repository {
+abstract class {{feature_class}}Interface {
   // TODO: Define repository interface
 }

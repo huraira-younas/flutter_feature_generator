@@ -1,4 +1,4 @@
-Bundled templates are grouped into sets: `full`, `api`, `ui`.
+Bundled templates are grouped into sets: `full`, `bloc`, `repository`, `views`.
 
 
 Placeholders available:

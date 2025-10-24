@@ -1,16 +1,18 @@
+import 'package:{{project_name}}/common/widgets/custom_label_widget.dart';
 import 'package:flutter/material.dart';
 
 class {{feature_class}}Screen extends StatelessWidget {
-  const {{feature_class}}Screen({Key? key}) : super(key: key);
+  const {{feature_class}}Screen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('{{feature_class}}'),
-      ),
-      body: const Center(
-        child: Text('{{feature_class}} Screen'),
+    return const Scaffold(
+      body: Center(
+        child: CustomLabelWidget(
+          text: "{{FeatureName}} is in development",
+          icon: Icons.work_outline_outlined,
+          title: "In Development",
+        ),
       ),
     );
   }
