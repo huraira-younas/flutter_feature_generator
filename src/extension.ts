@@ -52,13 +52,13 @@ export function activate(context: vscode.ExtensionContext) {
 
       const templatesToGenerate =
         templateChoice === "full"
-          ? ["bloc", "repository", "views"]
-          : [templateChoice];
+          ? ["bloc", "repository", "views", "locator.dart"]
+          : [templateChoice, "locator.dart"];
 
       const config = vscode.workspace.getConfiguration(
         "flutterFeatureGenerator"
       );
-      
+
       const templatesSource = config.get<string>(
         "templatesSource",
         "extension"
