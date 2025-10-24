@@ -1,4 +1,4 @@
-import 'package:{{project_name}}/utils/base_bloc/base_bloc.dart';
+import 'package:{{project_name}}/core/base_bloc/base_bloc.dart';
 
 part '{{feature_name}}_event.dart';
 part '{{feature_name}}_state.dart';
