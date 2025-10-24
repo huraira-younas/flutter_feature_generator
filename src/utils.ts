@@ -81,44 +81,44 @@ export async function ensureCoreFiles(
 
   try {
     await vscode.workspace.fs.stat(coreDir);
-    return;
   } catch {
-    await vscode.window.withProgress(
-      {
-        location: vscode.ProgressLocation.Notification,
-        title: "Setting up core files",
-        cancellable: false,
-      },
-      async (progress) => {
-        progress.report({ message: "Creating core directory..." });
-        await ensureDir(coreDir);
-
-        const templateCoreDir = vscode.Uri.file(
-          context.asAbsolutePath("src/templates/core")
-        );
-        const files = await collectFiles(templateCoreDir);
-        const projectName = await readProjectName(workspaceFolder);
-
-        for (const file of files) {
-          const relPath = path.relative(templateCoreDir.fsPath, file.fsPath);
-          const outPath = vscode.Uri.joinPath(coreDir, relPath);
-
-          progress.report({ message: `Creating ${relPath}` });
-          await ensureDir(vscode.Uri.joinPath(outPath, ".."));
-
-          const content = await vscode.workspace.fs.readFile(file);
-          let contentStr = replacePlaceholders(
-            content.toString(),
-            "core",
-            projectName
-          );
-
-          await vscode.workspace.fs.writeFile(
-            outPath,
-            Buffer.from(contentStr, "utf8")
-          );
-        }
-      }
-    );
+    await ensureDir(coreDir);
   }
+
+  await vscode.window.withProgress(
+    {
+      location: vscode.ProgressLocation.Notification,
+      title: "Setting up core files",
+      cancellable: false,
+    },
+    async (progress) => {
+      progress.report({ message: "Creating core directory..." });
+
+      const templateCoreDir = vscode.Uri.file(
+        context.asAbsolutePath("src/templates/core")
+      );
+      const files = await collectFiles(templateCoreDir);
+      const projectName = await readProjectName(workspaceFolder);
+
+      for (const file of files) {
+        const relPath = path.relative(templateCoreDir.fsPath, file.fsPath);
+        const outPath = vscode.Uri.joinPath(coreDir, relPath);
+
+        progress.report({ message: `Creating ${relPath}` });
+        await ensureDir(vscode.Uri.joinPath(outPath, ".."));
+
+        const content = await vscode.workspace.fs.readFile(file);
+        let contentStr = replacePlaceholders(
+          content.toString(),
+          "core",
+          projectName
+        );
+
+        await vscode.workspace.fs.writeFile(
+          outPath,
+          Buffer.from(contentStr, "utf8")
+        );
+      }
+    }
+  );
 }
