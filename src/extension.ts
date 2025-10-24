@@ -24,7 +24,6 @@ export function activate(context: vscode.ExtensionContext) {
         return;
       }
 
-      await ensureCoreFiles(workspaceFolder, context);
       const featureName = await vscode.window.showInputBox({
         prompt: "Enter the name of the feature (e.g., user_profile)",
         validateInput: (value) => {
@@ -49,6 +48,8 @@ export function activate(context: vscode.ExtensionContext) {
       if (!templateChoice) {
         return;
       }
+
+      await ensureCoreFiles(workspaceFolder, context);
 
       const templatesToGenerate =
         templateChoice === "full"
