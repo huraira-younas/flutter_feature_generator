@@ -1,4 +1,4 @@
-import 'repository/{{feature_name}}repository.dart';
+import 'repository/{{feature_name}}_repository.dart';
 import 'bloc/{{feature_name}}_bloc.dart';
 import 'package:get_it/get_it.dart';
 
