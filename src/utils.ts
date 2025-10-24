@@ -68,8 +68,8 @@ export function replacePlaceholders(
 ): string {
   const featureClassName = toPascalCase(featureName);
   return content
-    .replace(/{{feature_name}}/g, featureName)
     .replace(/{{feature_class}}/g, featureClassName)
+    .replace(/{{feature_name}}/g, featureName)
     .replace(/{{project_name}}/g, projectName);
 }
 
