@@ -10,8 +10,8 @@
         "Other"
     ],
     "repository": {
-        "type": "git",
-        "url": "https://github.com/example/example.git"
+        "url": "https://github.com/huraira-younas/flutter_feature_generator.git",
+        "type": "git"
     },
     "activationEvents": [
         "onCommand:flutterFeatureGenerator.generateFeature"
