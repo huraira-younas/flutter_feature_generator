@@ -11,11 +11,11 @@ class CustomState extends Equatable {
 }
 
 abstract class BaseBlocState extends Equatable {
+  final CustomState? loading;
   final CustomState? error;
-  final bool loading;
 
   const BaseBlocState({required this.error, required this.loading});
-  BaseBlocState copyWith({CustomState? error, bool? loading});
+  BaseBlocState copyWith({CustomState? error, CustomState? loading});
 
   @override
   List<Object?> get props => [error, loading];

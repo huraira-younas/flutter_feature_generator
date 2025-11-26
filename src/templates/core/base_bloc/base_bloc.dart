@@ -21,7 +21,7 @@ abstract class BaseBloc<E extends BaseBlocEvent, S extends BaseBlocState>
       } catch (e, st) {
         Logger.error(tag: event.name, message: e.toString(), stackTrace: st);
         final error = CustomState(message: e.toString(), title: event.name);
-        final err = state.copyWith(error: error, loading: false) as S;
+        final err = state.copyWith(error: error, loading: null) as S;
         event.onError?.call(error);
         emit(err);
       }

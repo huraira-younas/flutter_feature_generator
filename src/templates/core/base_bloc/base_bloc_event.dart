@@ -2,7 +2,7 @@ part of 'base_bloc.dart';
 
 abstract class BaseBlocEvent extends Equatable {
   final void Function(CustomState errorState)? onError;
-  final void Function()? onSuccess;
+  final void Function({dynamic data})? onSuccess;
   final String name;
 
   const BaseBlocEvent({
