@@ -8,24 +8,59 @@ class Logger {
   static bool isEnabled = kDebugMode;
   static bool showTimestamp = true;
 
-  static void success({required String tag, required dynamic message}) =>
-      _log(LogLevel.success, tag, message);
-  static void debug({required String tag, required dynamic message}) =>
-      _log(LogLevel.debug, tag, message);
-  static void error({required String tag, required dynamic message}) =>
-      _log(LogLevel.error, tag, message);
-  static void trace({required String tag, required dynamic message}) =>
-      _log(LogLevel.trace, tag, message);
-  static void info({required String tag, required dynamic message}) =>
-      _log(LogLevel.info, tag, message);
-  static void warn({required String tag, required dynamic message}) =>
-      _log(LogLevel.warn, tag, message);
+  static void success({
+    required dynamic message,
+    StackTrace? stackTrace,
+    required String tag,
+  }) => _logWithLevel(stackTrace, message, LogLevel.success, tag);
+
+  static void debug({
+    required dynamic message,
+    StackTrace? stackTrace,
+    required String tag,
+  }) => _logWithLevel(stackTrace, message, LogLevel.debug, tag);
+
+  static void error({
+    required dynamic message,
+    StackTrace? stackTrace,
+    required String tag,
+  }) => _logWithLevel(stackTrace, message, LogLevel.error, tag);
+
+  static void trace({
+    required dynamic message,
+    StackTrace? stackTrace,
+    required String tag,
+  }) => _logWithLevel(stackTrace, message, LogLevel.trace, tag);
+
+  static void info({
+    required dynamic message,
+    StackTrace? stackTrace,
+    required String tag,
+  }) => _logWithLevel(stackTrace, message, LogLevel.info, tag);
+
+  static void warn({
+    required dynamic message,
+    StackTrace? stackTrace,
+    required String tag,
+  }) => _logWithLevel(stackTrace, message, LogLevel.warn, tag);
+
+  static void _logWithLevel(
+    StackTrace? stackTrace,
+    dynamic message,
+    LogLevel level,
+    String tag,
+  ) => _log(level: level, message: message, tag: tag, stackTrace: stackTrace);
 
   static String _formatPadding(int message) {
     return message.toString().padLeft(2, '0');
   }
 
-  static void _log(LogLevel level, String tag, dynamic message) {
+  static void _log({
+    required dynamic message,
+    required LogLevel level,
+    StackTrace? stackTrace,
+    required String tag,
+  }) {
     if (!isEnabled) return;
 
     final now = DateTime.now();
@@ -39,7 +74,10 @@ class Logger {
     final color = _getColor(level);
 
     final fullText = '[${tag.toUpperCase()}] $formattedMessage';
-    log('$color$levelTag $timestamp$emoji $fullText\x1B[0m');
+    log(
+      '$color$levelTag $timestamp$emoji $fullText\x1B[0m',
+      stackTrace: stackTrace,
+    );
   }
 
   static String _formatMessage(dynamic message) {
